@@ -1,0 +1,78 @@
+<h2>ELECTRONICA INTEGRAL:</h2>
+<h2>Productos:</h2>
+<div class="button-container">
+  <a href="/"><button class="inicio-button">Inicio</button></a>
+  <a href="/api/products/create"><button class="inicio-button">Crear Producto</button></a>
+</div>
+<h3>Total: {{payload.totalDocs}} documentos</h3>
+<div class="button-container">
+  {{#if sortOrder}}
+    <a href="/api/products?sort=desc"><button class="inicio-button">Ordenar
+        Precio Descendente</button></a>
+  {{else}}
+    <a href="/api/products?sort=asc"><button class="inicio-button">Ordenar
+        Precio Ascendente</button></a>
+  {{/if}}
+</div>
+<div class="button-pages-container">
+  {{#if prevLink}}
+    <a href={{prevLink}}><button>Anterior</button></a>
+  {{else}}
+    <button disabled>Anterior</button>
+  {{/if}}
+  <span>Página {{payload.page}} de {{payload.totalPages}}</span>
+  {{#if nextLink}}
+    <a href={{nextLink}}><button>Siguiente</button></a>
+  {{else}}
+    <button disabled>Siguiente</button>
+  {{/if}}
+</div>
+<div class="container">
+  {{#each payload.docs}}
+    <div class="card">
+      <h2>{{this.title}}</h2>
+      <p>ID: {{this._id}}</p>
+      <p>Precio: {{this.price}}</p>
+      <p>Stock: {{this.stock}}</p>
+      <p>Categoría: {{this.category}}</p>
+      <div class="button-container" style="gap: 10px">
+        <a href="/api/products/update/{{this._id}}"><button>Editar</button></a>
+        <button onclick="deleteProduct('{{this._id}}')">Eliminar</button>
+      </div>
+      <div class="button-container">
+
+        <a href="/api/products/{{this._id}}">
+          <button class="inicio-button">Detalles</button>
+        </a>
+      </div>
+
+      <div class="select-container">
+        <select id="cart-{{this._id}}">
+          <option>Seleccionar Carrito donde agregar</option>
+          {{#each ../availableCarts}}
+            <option value="{{this._id}}">{{this._id}}</option>
+          {{/each}}
+        </select>
+        <button
+          onclick="addProductToCart(document.getElementById('cart-{{this._id}}').value, '{{this._id}}')"
+        >Agregar a Carrito</button>
+      </div>
+
+    </div>
+  {{/each}}
+  <div class="button-pages-container">
+    {{#if payload.hasPrevPage}}
+      <a href="/api/products?page={{payload.prevPage}}"><button
+        >Anterior</button></a>
+    {{else}}
+      <button>Anterior</button>
+    {{/if}}
+    <span>Página {{payload.page}} de {{payload.totalPages}}</span>
+    {{#if payload.hasNextPage}}
+      <a href="/api/products?page={{payload.nextPage}}"><button
+        >Siguiente</button></a>
+    {{else}}
+      <button>Siguiente</button>
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<h2>ELECTRONICA INTEGRAL:</h2>
+<h2>Carritos:</h2>
+<div class="button-container">
+  <a href="/"><button class="inicio-button">Inicio</button></a>
+  <button onclick="createCart()" class="inicio-button">Crear Carrito</button>
+</div>
+<div class="container">
+  {{#each payload}}
+    <div class="card">
+      <h3>
+        ID Carrito:
+      </h3>
+      <p>
+      {{this._id}}
+      </p>
+      <div class="button-container">
+        <Button onclick="deleteCart('{{this._id}}')">Eliminar Carrito</Button>
+      </div>
+      <h3>Lista de productos:</h3>
+      {{#if this.products.length}}
+        {{#each this.products}}
+      <div class="product-container"> 
+        <p>
+            {{this.productId.title}}
+        </p>
+          <p>
+            <b>Cantidad: </b>{{this.quantity}}
+          </p>
+          <div class="button-container">
+              <button onclick="deleteProductFromCart('{{../_id}}', '{{this.productId._id}}')">Eliminar Producto</button>
+          </div>
+      </div>
+        {{/each}}
+      {{else}}
+        <p>No hay productos disponibles.</p>
+      {{/if}}
+      <div class="select-container">
+        <select id="product-{{this._id}}">
+          <option>Seleccionar producto a agregar</option>
+          {{#each ../availableProducts}}
+            <option value="{{this._id}}">{{this.title}}</option>
+          {{/each}}
+        </select>
+        <button onclick="addProductToCart('{{this._id}}', document.getElementById('product-{{this._id}}').value)">Agregar a Carrito</button>
+      </div>
+    </div>
+  {{/each}}
+</div>

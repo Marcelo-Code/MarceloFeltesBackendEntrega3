@@ -1,0 +1,39 @@
+<h2>Crear Producto</h2>
+
+<div class="container">
+
+  <div class="card">
+    <form id="createProductForm" method="POST">
+      <label for="title">Título:</label><br />
+      <input type="text" id="title" name="title" /><br /><br />
+
+      <label for="description">Descripción:</label><br />
+      <textarea id="description" name="description"></textarea><br /><br />
+
+      <label for="price">Precio:</label><br />
+      <input type="number" id="price" name="price" /><br /><br />
+
+      <label for="category">Categoría:</label><br />
+      <input type="text" id="category" name="category" /><br /><br />
+
+      <label for="stock">Stock:</label><br />
+      <input type="number" id="stock" name="stock" /><br /><br />
+
+      <div class="button-container">
+        <button type="submit">Crear Producto</button>
+      </div>
+    </form>
+  </div>
+  <div class="button-container">
+    <a href="/"><button class="inicio-button">Inicio</button></a>
+  </div>
+</div>
+<script>
+  document.getElementById("createProductForm").addEventListener("submit",
+  function(event) { event.preventDefault(); // Prevent default form const let
+  product = { title: document.getElementById("title").value, description:
+  document.getElementById("description").value, price:
+  parseFloat(document.getElementById("price").value), category:
+  document.getElementById("category").value, stock:
+  parseInt(document.getElementById("stock").value)}; createProduct(product); });
+</script>

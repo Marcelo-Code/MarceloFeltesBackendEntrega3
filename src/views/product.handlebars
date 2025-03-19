@@ -1,0 +1,30 @@
+<h2>ELECTRONICA INTEGRAL:</h2>
+<h2>Detalle producto:</h2>
+<div class="button-container">
+  <a href="/api/products/"><button class="inicio-button">Volver</button></a>
+</div>
+<div class="container">
+  <div class="card">
+    <h2>{{payload.title}}</h2>
+    <p>ID: {{payload._id}}</p>
+    <p>Precio: {{payload.price}}</p>
+    <p>Stock: {{payload.stock}}</p>
+    <p>Categoría: {{payload.category}}</p>
+    <p>Descriptción: {{payload.description}}</p>
+    <div class="button-container" style="gap: 10px">
+      <a href="/api/products/update/{{payload._id}}"><button>Editar</button></a>
+      <button onclick="deleteProduct('{{payload._id}}')">Eliminar</button>
+    </div>
+    <div class="select-container">
+      <select id="cart-{{payload._id}}">
+        <option>Seleccionar Carrito donde agregar</option>
+        {{#each availableCarts}}
+          <option value="{{this._id}}">{{this._id}}</option>
+        {{/each}}
+      </select>
+      <button
+        onclick="addProductToCart(document.getElementById('cart-{{payload._id}}').value, '{{payload._id}}')"
+      >Agregar a Carrito</button>
+    </div>
+  </div>
+</div>
